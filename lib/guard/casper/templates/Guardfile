@@ -1,0 +1,5 @@
+guard 'casper' do
+  watch(%r{scenario/javascripts/scenario\.(js\.coffee|js|coffee)$})         { "scenario/javascripts" }
+  watch(%r{scenario/javascripts/.+_scenario\.(js\.coffee|js|coffee)$})
+  watch(%r{app/assets/javascripts/(.+?)\.(js\.coffee|js|coffee)$})  { |m| "scenario/javascripts/#{m[1]}_scenario.#{m[2]}" }
+end
