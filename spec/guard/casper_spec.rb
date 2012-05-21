@@ -32,16 +32,16 @@ describe Guard::Casper do
         guard.options[:port].should eql 8888
       end
 
-      it 'sets a default :test_base_url option' do
-        guard.options[:test_base_url].should eql 'http://localhost:8888/casper'
+      it 'sets a default :base_url option' do
+        guard.options[:base_url].should eql 'http://localhost:8888/casper'
       end
 
       it 'sets a default :timeout option' do
         guard.options[:timeout].should eql 10000
       end
 
-      it 'sets a default :scenario_dir option' do
-        guard.options[:scenario_dir].should eql 'scenario/javascripts'
+      it 'sets a default :scenario_paths option' do
+        guard.options[:scenario_paths].should eql 'scenario'
       end
 
       it 'sets a default :all_on_start option' do
@@ -99,99 +99,50 @@ describe Guard::Casper do
     end
 
     context 'with other options than the default ones' do
-      let(:guard) { Guard::Casper.new(nil, { :server           => :casper_gem,
-                                              :server_env       => 'test',
+      let(:guard) { Guard::Casper.new(nil, { :server            => :mongrel,
+                                              :server_env       => 'development',
                                               :port             => 4321,
-                                              :test_base_url      => 'http://192.168.1.5/casper',
-                                              :casperjs_bin    => '~/bin/casperjs',
-                                              :timeout          => 20000,
-                                              :scenario_dir         => 'scenario',
-                                              :all_on_start     => false,
-                                              :notification     => false,
-                                              :max_error_notify => 5,
-                                              :hide_success     => true,
-                                              :keep_failed      => false,
-                                              :all_after_pass   => false,
-                                              :scenariodoc          => :always,
-                                              :focus            => false,
-                                              :errors           => :always,
-                                              :console          => :always }) }
+                                              :base_url         => 'http://192.168.1.5/casper',
+                                              :casperjs_bin     => '~/bin/casperjs',
+                                              :scenario_paths   => 'scenario',
+                                              :all_on_start     => false })}
+                                           
 
       it 'sets the :server option' do
-        guard.options[:server].should eql :casper_gem
+        guard.options[:server].should eql :mongrel
       end
 
       it 'sets the :server_env option' do
-        guard.options[:server_env].should eql 'test'
+        guard.options[:server_env].should eql 'development'
       end
 
-      it 'sets the :test_base_url option' do
+      it 'sets the :base_url option' do
         guard.options[:port].should eql 4321
       end
 
-      it 'sets the :test_base_url option' do
-        guard.options[:test_base_url].should eql 'http://192.168.1.5/casper'
+      it 'sets the :base_url option' do
+        guard.options[:base_url].should eql 'http://192.168.1.5/casper'
       end
 
       it 'sets the :casperjs_bin option' do
         guard.options[:casperjs_bin].should eql '~/bin/casperjs'
       end
 
-      it 'sets the :casperjs_bin option' do
-        guard.options[:timeout].should eql 20000
-      end
-
-      it 'sets the :scenario_dir option' do
-        guard.options[:scenario_dir].should eql 'scenario'
+      it 'sets the :scenario_paths option' do
+        guard.options[:scenario_paths].should eql 'scenario'
       end
 
       it 'sets the :all_on_start option' do
         guard.options[:all_on_start].should be_false
       end
 
-      it 'sets the :notifications option' do
-        guard.options[:notification].should be_false
-      end
-
-      it 'sets the :hide_success option' do
-        guard.options[:hide_success].should be_true
-      end
-
-      it 'sets the :max_error_notify option' do
-        guard.options[:max_error_notify].should eql 5
-      end
-
-      it 'sets the :keep_failed option' do
-        guard.options[:keep_failed].should be_false
-      end
-
-      it 'sets the :all_after_pass option' do
-        guard.options[:all_after_pass].should be_false
-      end
-
-      it 'sets the :scenariodoc option' do
-        guard.options[:scenariodoc].should eql :always
-      end
-
-      it 'sets the :console option' do
-        guard.options[:console].should eql :always
-      end
-
-      it 'sets the :errors option' do
-        guard.options[:errors].should eql :always
-      end
-
-      it 'sets the :focus option' do
-        guard.options[:focus].should eql false
-      end
-
     end
 
-    context 'with a port but no test_base_url option set' do
+    context 'with a port but no base_url option set' do
       let(:guard) { Guard::Casper.new(nil, { :port => 4321 }) }
 
-      it 'sets the port on the test_base_url' do
-        guard.options[:test_base_url].should eql 'http://localhost:4321/casper'
+      it 'sets the port on the base_url' do
+        guard.options[:base_url].should eql 'http://localhost:4321/casper'
       end
     end
 

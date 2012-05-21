@@ -18,10 +18,9 @@ module Guard
         # @param [String] strategy the server strategy to use
         # @param [Number] port the server port
         # @param [String] environment the Rails environment
-        # @param [String] scenario_dir the scenario directory
         #
-        def start(strategy, port, environment, scenario_dir)
-          strategy = detect_server(scenario_dir) if strategy == :auto
+        def start(strategy, port, environment)
+          strategy = detect_server if strategy == :auto
           start_rack_server(port, environment, strategy) unless strategy == :none
           wait_for_server(port) unless strategy == :none
         end
@@ -59,10 +58,9 @@ module Guard
 
         # Detect the server to use
         #
-        # @param [String] scenario_dir the scenario directory
         # @return [Symbol] the server strategy
         #
-        def detect_server(scenario_dir)
+        def detect_server
           if File.exists?('config.ru')
             :webrick
           else
