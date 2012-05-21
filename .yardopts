@@ -1,8 +1,0 @@
---readme           README.md
---markup           markdown
---markup-provider  redcarpet
---title            'Guard::Jasmine Documentation'
---hide-void-return
---protected
---private
-lib/**/*.rb
