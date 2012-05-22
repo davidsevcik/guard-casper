@@ -15,8 +15,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = '>= 1.3.6'
 
   s.add_dependency 'guard', '>= 0.8.3'
-  # s.add_dependency 'multi_json'
-  # s.add_dependency 'childprocess'
+  s.add_dependency 'childprocess'
 
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'guard-rscenario'
@@ -28,7 +27,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pry'
   s.add_development_dependency 'yajl-ruby'
 
-  s.files        = Dir.glob('{bin,lib}/**/*') #+ %w[LICENSE README.md]
-  # s.executables  = ['guard-casper', 'guard-casper-debug']
+  s.files        = Dir.glob('{bin,lib}/**/*') + %w[README.md]
   s.require_path = 'lib'
 end
