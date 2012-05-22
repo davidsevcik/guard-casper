@@ -23,7 +23,8 @@ module Guard
         :scenario_paths   => ['scenario'],
         :all_on_start     => true,
         :throw_failed     => true,
-        :notify           => true
+        :notify           => true,
+        :xunit_report     => nil
       }
       
       # Initialize Guard::Casper::Machine.
@@ -91,7 +92,11 @@ module Guard
         ::Guard::Casper::Formatter.info("Run Casper scenario#{ paths.size == 1 ? '' : 's' } in #{ paths.join(' ') }", 
           :reset => true)
         
-        if system "#{ @options[:casperjs_bin] } test #{ paths.join(' ') } --base_url=\"#{ @options[:base_url] }\""
+        args = []
+        args << "--base_url=\"#{ @options[:base_url] }\""
+        args << "--xunit=\"#{ @options[:xunit_report] }\"" if @options[:xunit_report]
+        
+        if system "#{ @options[:casperjs_bin] } test #{ paths.join(' ') } #{ args.join(' ') }"
           
           ::Guard::Casper::Formatter.notify(paths.join("\n"), :title => 'Casper scenarios passed') if @options[:notify]
           return true
