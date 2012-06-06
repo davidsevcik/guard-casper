@@ -22,7 +22,7 @@ module Guard
 
             if version
               # Remove all but version, e.g. from '1.5 (development)'
-              cleaned_version = version.match(/(\d\.)*(\d)/)
+              cleaned_version = version.match(/(\d+\.)*(\d+)/)
 
               if cleaned_version
                 if Gem::Version.new(cleaned_version[0]) < Gem::Version.new('0.6.6')
@@ -62,8 +62,8 @@ module Guard
 
           nil
         end
-      
-      
+
+
         def server_is_running(path)
           Net::HTTP.get_response(URI(path)).is_a? Net::HTTPOK
         rescue
